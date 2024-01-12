@@ -1,4 +1,1 @@
-# gamingBuddy
-
-asdfas
-asdfas
+# gameBuddy
