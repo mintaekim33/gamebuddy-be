@@ -1,1 +1,1 @@
-# gamingBuddy
+# gameBuddy
