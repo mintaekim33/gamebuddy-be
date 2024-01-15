@@ -63,4 +63,4 @@ const userSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model("Flights", userSchema);
+module.exports = mongoose.model("Users", userSchema);
