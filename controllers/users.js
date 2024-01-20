@@ -6,6 +6,7 @@ module.exports = {
   getUser,
   updateUser,
   getReviews,
+  getAllReviews,
 };
 
 async function createUser(req, res) {
@@ -52,6 +53,16 @@ async function getReviews(req, res) {
   try {
     const user = await modelUsers.getReviews(req);
     res.status(201).json("get reviews by a user");
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ errorMsg: err.message });
+  }
+}
+
+async function getAllReviews(req, res) {
+  try {
+    const user = await modelUsers.getAllReviews(req);
+    res.json({ user });
   } catch (err) {
     console.log(err);
     res.status(500).json({ errorMsg: err.message });

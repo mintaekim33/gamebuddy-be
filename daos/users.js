@@ -1,28 +1,28 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const reviewSchema = new Schema({
-  game: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  rating: {
-    type: Number,
-    required: true,
-  },
-  releaseYear: {
-    type: Number,
-    required: true,
-  },
-  platform: {
-    type: String,
-    required: true,
-  },
-});
+// const reviewSchema = new Schema({
+//   game: {
+//     type: String,
+//     required: true,
+//   },
+//   description: {
+//     type: String,
+//     required: true,
+//   },
+//   rating: {
+//     type: Number,
+//     required: true,
+//   },
+//   releaseYear: {
+//     type: Number,
+//     required: true,
+//   },
+//   platform: {
+//     type: String,
+//     required: true,
+//   },
+// });
 
 const userSchema = new Schema(
   {
@@ -56,7 +56,7 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    reviews: [reviewSchema],
+    // reviews: [reviewSchema],
   },
   {
     timestamps: true,

@@ -1,4 +1,5 @@
 const daoUsers = require("../daos/users");
+const daoReviews = require("../daos/reviews");
 
 module.exports = {
   createUser,
@@ -6,6 +7,7 @@ module.exports = {
   getUser,
   updateUser,
   getReviews,
+  getAllReviews,
 };
 
 function createUser(param) {
@@ -26,4 +28,8 @@ function updateUser(param) {
 
 function getReviews(param) {
   return daoUsers.find({});
+}
+
+function getAllReviews() {
+  return daoReviews.find({});
 }
