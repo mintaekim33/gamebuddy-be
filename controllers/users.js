@@ -32,7 +32,7 @@ async function loginUser(req, res) {
 async function getUser(req, res) {
   try {
     const user = await modelUsers.getUser(req);
-    res.status(201).json("get user profile");
+    res.json({ user });
   } catch (err) {
     console.log(err);
     res.status(500).json({ errorMsg: err.message });

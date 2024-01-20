@@ -19,7 +19,7 @@ function loginUser(param) {
 }
 
 function getUser(param) {
-  return daoUsers.find({});
+  return daoUsers.findOne({ name: "Tom" });
 }
 
 function updateUser(param) {
