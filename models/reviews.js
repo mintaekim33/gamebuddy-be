@@ -12,7 +12,7 @@ function createReview(param) {
   return daoReviews.create(param);
 }
 
-function getReviews(param) {
+function getReviews() {
   return daoReviews.find({});
 }
 

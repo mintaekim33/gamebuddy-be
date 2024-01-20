@@ -20,8 +20,8 @@ async function createReview(req, res) {
 
 async function getReviews(req, res) {
   try {
-    const review = await modelReviews.getReviews(req);
-    res.status(201).json("get reviews");
+    const reviews = await modelReviews.getReviews();
+    res.status(200).json(reviews);
   } catch (err) {
     console.log(err);
     res.status(500).json({ errorMsg: err.message });
