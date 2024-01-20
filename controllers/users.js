@@ -31,7 +31,8 @@ async function loginUser(req, res) {
 
 async function getUser(req, res) {
   try {
-    const user = await modelUsers.getUser(req);
+    console.log(req.params.userId);
+    const user = await modelUsers.getUser(req.params.userId);
     res.json({ user });
   } catch (err) {
     console.log(err);
@@ -41,8 +42,10 @@ async function getUser(req, res) {
 
 async function updateUser(req, res) {
   try {
-    const user = await modelUsers.updateUser(req);
-    res.status(201).json("update user profile");
+    console.log("update user: ", req.params.userId);
+    console.log("update user body: ", req.body);
+    const user = await modelUsers.updateUser(req.params.userId, req.body);
+    res.json({ user });
   } catch (err) {
     console.log(err);
     res.status(500).json({ errorMsg: err.message });
