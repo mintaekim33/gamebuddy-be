@@ -10,7 +10,7 @@ module.exports = {
 
 async function createReview(req, res) {
   try {
-    const review = await modelReviews.createReview(req);
+    const review = await modelReviews.createReview(req.body);
     res.status(201).json("create review");
   } catch (err) {
     console.log(err);
