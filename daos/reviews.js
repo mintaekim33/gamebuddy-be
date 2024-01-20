@@ -16,7 +16,7 @@ const reviewSchema = new Schema({
   },
   releaseYear: {
     type: Number,
-    required: true,
+    // required: true,
   },
   platform: {
     type: String,
