@@ -11,8 +11,10 @@ module.exports = {
 
 async function createUser(req, res) {
   try {
-    const user = await modelUsers.createUser(req);
-    res.status(201).json("create user");
+    console.log(req.body);
+    const user = await modelUsers.createUser(req.body);
+    res.json({ user });
+    console.log(user);
   } catch (err) {
     console.log(err);
     res.status(500).json({ errorMsg: err.message });
