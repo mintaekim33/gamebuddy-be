@@ -2,6 +2,7 @@ const modelUsers = require("../models/users");
 
 module.exports = {
   createUser,
+  getLoginDetails,
   loginUser,
   getUser,
   updateUser,
@@ -21,10 +22,32 @@ async function createUser(req, res) {
   }
 }
 
+async function getLoginDetails(req, res) {
+  try {
+    console.log("query: ", req.query);
+    const loginDetails = await modelUsers.getLoginDetails(req.query);
+    console.log("login details: ", loginDetails);
+    if (loginDetails.success != true) {
+      res.status(400).json({ errorMsg: loginDetails.error });
+      return;
+    }
+    res.json(loginDetails.data); /// contains _id, salt, iterations
+  } catch (err) {
+    res.status(500).json({ errorMsg: err.message });
+  }
+}
+
 async function loginUser(req, res) {
   try {
-    const user = await modelUsers.loginUser(req);
-    res.status(201).json("login user");
+    console.log("body: ", req.body);
+    const token = await modelUsers.loginUser(req.body);
+    console.log(token);
+    // if (!token.success) {
+    //   res.status(400).json({ errorMsg: token.error });
+    //   return;
+    // }
+    // res.json(token.data); // return JWT
+    res.json(token);
   } catch (err) {
     console.log(err);
     res.status(500).json({ errorMsg: err.message });
