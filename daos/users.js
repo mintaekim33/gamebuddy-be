@@ -28,23 +28,24 @@ const userSchema = new Schema(
   {
     name: {
       type: String,
-      //   required: true,
+      required: true,
     },
     email: {
       type: String,
-      //   required: true,
+      lowercase: true,
+      required: true,
     },
     password: {
       type: String,
-      //   required: true,
+      required: true,
     },
     salt: {
       type: String,
-      //   required: true,
+      // required: true,
     },
     iterations: {
       type: Number,
-      //   required: true,
+      // required: true,
     },
     token: {
       type: String,

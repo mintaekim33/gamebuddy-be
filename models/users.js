@@ -10,8 +10,17 @@ module.exports = {
   getAllReviews,
 };
 
-function createUser(param) {
-  return daoUsers.create(param);
+async function createUser(body) {
+  const user = await daoUsers.findOne({ email: body.email });
+  console.log(user);
+  if (user) {
+    return {
+      success: false,
+      error: "This email is already registered with an account",
+    };
+  }
+  const newUser = await daoUsers.create(body);
+  return { success: true, data: newUser, done: "Thanks for registering!" };
 }
 
 function loginUser(param) {
