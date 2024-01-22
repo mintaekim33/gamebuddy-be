@@ -6,6 +6,8 @@ var userController = require("../controllers/users");
 // POST /users/register register a user
 router.post("/register", userController.createUser);
 
+// GET /users/login get login details
+router.get("/login", userController.getLoginDetails);
 // POST /users/login login a user
 router.post("/login", userController.loginUser);
 
