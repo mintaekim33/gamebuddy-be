@@ -13,7 +13,7 @@ router.get("/", reviewController.getReviews);
 router.get("/:reviewId", reviewController.getReview);
 
 // PUT /reviews/:reviewId update a review
-router.put("/:reviewId", reviewController.updateReview);
+router.put("/:reviewId/edit", reviewController.updateReview);
 
 // DELETE /reviews/:reviewId delete a review
 router.delete("/:reviewId", reviewController.deleteReview);

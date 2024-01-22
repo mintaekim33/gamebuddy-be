@@ -55,10 +55,16 @@ async function updateReview(req, res) {
   try {
     const reviewId = req.params.reviewId;
     const updateData = req.body;
+
     const updatedReview = await modelReviews.updateReview(reviewId, updateData);
+
+    if (!updatedReview) {
+      return res.status(404).json({ message: "Review not found" });
+    }
+
     res.status(200).json(updatedReview);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json({ errorMsg: err.message });
   }
 }
