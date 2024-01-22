@@ -1,4 +1,6 @@
 const modelReviews = require("../models/reviews");
+const User = require('../models/users'); 
+
 
 module.exports = {
   createReview,
@@ -10,8 +12,16 @@ module.exports = {
 
 async function createReview(req, res) {
   try {
-    const review = await modelReviews.createReview(req.body);
-    res.status(201).json("create review");
+    const reviewData = req.body;
+
+    // Validate userId
+    const user = await User.findById(reviewData.userId);
+    if (!user) {
+      return res.status(400).json({ errorMsg: "Invalid user ID" });
+    }
+
+    const review = await modelReviews.createReview(reviewData);
+    res.status(201).json(review); // Return the created review
   } catch (err) {
     console.log(err);
     res.status(500).json({ errorMsg: err.message });
