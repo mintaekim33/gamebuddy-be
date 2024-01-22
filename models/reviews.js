@@ -16,14 +16,14 @@ function getReviews() {
   return daoReviews.find({});
 }
 
-function getReview(param) {
-  return daoReviews.find({});
+function getReview(reviewId) {
+  return daoReviews.findById(reviewId);
 }
 
-function updateReview(param) {
-  return daoReviews.find({});
+function updateReview(reviewId, updateData) {
+  return daoReviews.findByIdAndUpdate(reviewId, updateData, { new: true });
 }
 
-function deleteReview(param) {
-  return daoReviews.find({});
+function deleteReview(reviewId) {
+  return daoReviews.findByIdAndRemove(reviewId);
 }
