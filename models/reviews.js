@@ -25,5 +25,5 @@ function updateReview(reviewId, updateData) {
 }
 
 function deleteReview(reviewId) {
-  return daoReviews.findByIdAndRemove(reviewId);
+  return daoReviews.findByIdAndDelete(reviewId);
 }
