@@ -8,7 +8,7 @@ module.exports = {
   getUser,
   updateUser,
   getReviews,
-  getAllReviews,
+  // getAllReviews,
   getLoginDetails,
 };
 
@@ -61,6 +61,7 @@ async function loginUser(body) {
   }
 
   const jwtPayload = {
+    _id: user._id,
     user: user.name,
     email: user.email,
     is_admin: user.is_admin,
@@ -75,8 +76,8 @@ async function loginUser(body) {
 }
 
 function getUser(userId) {
-  // return daoUsers.findOne({ name: "name" });
-  return daoUsers.findOne({ _id: userId });
+  return daoUsers.findOne({ name: "name" });
+  // return daoUsers.findOne({ _id: userId });
 }
 
 function updateUser(userId, body) {
@@ -91,10 +92,10 @@ function updateUser(userId, body) {
   return daoUsers.updateOne({ name: "name" }, updateData);
 }
 
-function getReviews(param) {
-  return daoUsers.find({});
+function getReviews(userId) {
+  return daoReviews.find({ userId: userId }).populate("userId");
 }
 
-function getAllReviews() {
-  return daoReviews.find({});
-}
+// function getAllReviews() {
+//   return daoReviews.find({});
+// }

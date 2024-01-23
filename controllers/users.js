@@ -7,15 +7,15 @@ module.exports = {
   getUser,
   updateUser,
   getReviews,
-  getAllReviews,
+  // getAllReviews,
 };
 
 async function createUser(req, res) {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const user = await modelUsers.createUser(req.body);
     res.json({ user });
-    console.log(user);
+    // console.log(user);
   } catch (err) {
     console.log(err);
     res.status(500).json({ errorMsg: err.message });
@@ -24,9 +24,9 @@ async function createUser(req, res) {
 
 async function getLoginDetails(req, res) {
   try {
-    console.log("query: ", req.query);
+    // console.log("query: ", req.query);
     const loginDetails = await modelUsers.getLoginDetails(req.query);
-    console.log("login details: ", loginDetails);
+    // console.log("login details: ", loginDetails);
     if (loginDetails.success != true) {
       res.status(400).json({ errorMsg: loginDetails.error });
       return;
@@ -39,9 +39,9 @@ async function getLoginDetails(req, res) {
 
 async function loginUser(req, res) {
   try {
-    console.log("body: ", req.body);
+    // console.log("body: ", req.body);
     const token = await modelUsers.loginUser(req.body);
-    console.log(token);
+    // console.log(token);
     // if (!token.success) {
     //   res.status(400).json({ errorMsg: token.error });
     //   return;
@@ -56,7 +56,7 @@ async function loginUser(req, res) {
 
 async function getUser(req, res) {
   try {
-    console.log(req.params.userId);
+    console.log("user id ", req.params.userId);
     const user = await modelUsers.getUser(req.params.userId);
     res.json({ user });
   } catch (err) {
@@ -79,20 +79,21 @@ async function updateUser(req, res) {
 
 async function getReviews(req, res) {
   try {
-    const user = await modelUsers.getReviews(req);
-    res.status(201).json("get reviews by a user");
+    console.log("req.params: ", req.params);
+    const user = await modelUsers.getReviews(req.params.userId);
+    res.json("get user reviews");
   } catch (err) {
     console.log(err);
     res.status(500).json({ errorMsg: err.message });
   }
 }
 
-async function getAllReviews(req, res) {
-  try {
-    const user = await modelUsers.getAllReviews(req);
-    res.json({ user });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ errorMsg: err.message });
-  }
-}
+// async function getAllReviews(req, res) {
+//   try {
+//     const user = await modelUsers.getAllReviews(req);
+//     res.json({ user });
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).json({ errorMsg: err.message });
+//   }
+// }
