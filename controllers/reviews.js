@@ -72,10 +72,18 @@ async function updateReview(req, res) {
 async function deleteReview(req, res) {
   try {
     const reviewId = req.params.reviewId;
+    console.log("Attempting to delete review with ID:", reviewId);
+
+    // Optionally, check if the review exists first
+    const reviewExists = await modelReviews.getReview(reviewId);
+    if (!reviewExists) {
+      return res.status(404).json({ message: "Review not found" });
+    }
+
     await modelReviews.deleteReview(reviewId);
     res.status(200).json({ message: "Review deleted successfully" });
   } catch (err) {
-    console.log(err);
+    console.error("Error deleting review:", err);
     res.status(500).json({ errorMsg: err.message });
   }
 }
