@@ -1,5 +1,5 @@
 const modelReviews = require("../models/reviews");
-const User = require('../models/users'); 
+const modelUsers = require('../models/users'); 
 
 
 module.exports = {
@@ -15,7 +15,7 @@ async function createReview(req, res) {
     const reviewData = req.body;
 
     // Validate userId
-    const user = await User.findById(reviewData.userId);
+    const user = await modelUsers.getUser(reviewData.userId);
     if (!user) {
       return res.status(400).json({ errorMsg: "Invalid user ID" });
     }

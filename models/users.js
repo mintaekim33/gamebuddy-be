@@ -75,8 +75,8 @@ async function loginUser(body) {
 }
 
 function getUser(userId) {
-  return daoUsers.findOne({ name: "name" });
-  // return daoUsers.findOne({ _id: userId });
+  // return daoUsers.findOne({ name: "name" });
+  return daoUsers.findOne({ _id: userId });
 }
 
 function updateUser(userId, body) {
