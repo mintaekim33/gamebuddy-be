@@ -12,9 +12,9 @@ router.get("/login", userController.getLoginDetails);
 router.post("/login", userController.loginUser);
 
 // testing
-router.get("/reviews", userController.getAllReviews);
+// router.get("/reviews", userController.getAllReviews);
 
-// GET /users/:userId/reviews get reviews by a user
+// GET /users/reviews/:userId get reviews by a user
 router.get("/reviews/:userId", userController.getReviews);
 
 // GET /users/:userId get a user's profile
