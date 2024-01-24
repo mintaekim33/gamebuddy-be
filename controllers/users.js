@@ -81,7 +81,7 @@ async function getReviews(req, res) {
   try {
     console.log("req.params: ", req.params);
     const user = await modelUsers.getReviews(req.params.userId);
-    res.json("get user reviews");
+    res.json({ user });
   } catch (err) {
     console.log(err);
     res.status(500).json({ errorMsg: err.message });

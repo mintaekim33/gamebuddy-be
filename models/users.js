@@ -93,7 +93,9 @@ function updateUser(userId, body) {
 }
 
 function getReviews(userId) {
-  return daoReviews.find({ userId: userId }).populate("userId");
+  // return daoReviews.find({ userId: userId }).populate("userId");
+  console.log("models layer userId: ", userId);
+  return daoReviews.find({ userId: userId });
 }
 
 // function getAllReviews() {
