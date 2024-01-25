@@ -55,13 +55,18 @@ async function updateReview(req, res) {
   try {
     const reviewId = req.params.reviewId;
     const updateData = req.body;
+    const userId = req.user._id; 
 
-    const updatedReview = await modelReviews.updateReview(reviewId, updateData);
-
-    if (!updatedReview) {
+    const review = await modelReviews.getReview(reviewId);
+    if (!review) {
       return res.status(404).json({ message: "Review not found" });
     }
 
+    if (review.userId.toString() !== userId && !req.user.is_admin) {
+      return res.status(403).json({ message: "Forbidden: User not authorized to update this review" });
+    }
+
+    const updatedReview = await modelReviews.updateReview(reviewId, updateData);
     res.status(200).json(updatedReview);
   } catch (err) {
     console.error(err);
@@ -69,15 +74,19 @@ async function updateReview(req, res) {
   }
 }
 
+
 async function deleteReview(req, res) {
   try {
     const reviewId = req.params.reviewId;
-    console.log("Attempting to delete review with ID:", reviewId);
+    const userId = req.user._id;
 
-    // Optionally, check if the review exists first
-    const reviewExists = await modelReviews.getReview(reviewId);
-    if (!reviewExists) {
+    const review = await modelReviews.getReview(reviewId);
+    if (!review) {
       return res.status(404).json({ message: "Review not found" });
+    }
+
+    if (review.userId.toString() !== userId && !req.user.is_admin) {
+      return res.status(403).json({ message: "Forbidden: User not authorized to delete this review" });
     }
 
     await modelReviews.deleteReview(reviewId);
