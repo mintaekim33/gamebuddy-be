@@ -8,6 +8,7 @@ module.exports = {
   updateUser,
   getReviews,
   // getAllReviews,
+  logoutUser,
 };
 
 async function createUser(req, res) {
@@ -54,6 +55,20 @@ async function loginUser(req, res) {
   }
 }
 
+async function logoutUser(req, res) {
+  try {
+    console.log("logout req body: ", req.body);
+    const result = await modelUsers.logoutUser(req.body);
+    if (!result.success) {
+      res.status(400).json({ errorMsg: result.error });
+      return;
+    }
+    res.json(result.data);
+  } catch (err) {
+    res.status(500).json({ errorMsg: err.message });
+  }
+}
+
 async function getUser(req, res) {
   try {
     console.log("user id ", req.params.userId);
@@ -79,7 +94,7 @@ async function updateUser(req, res) {
 
 async function getReviews(req, res) {
   try {
-    console.log("req.params: ", req.params);
+    // console.log("req.params: ", req.params);
     const user = await modelUsers.getReviews(req.params.userId);
     res.json({ user });
   } catch (err) {

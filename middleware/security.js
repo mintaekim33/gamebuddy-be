@@ -41,7 +41,7 @@ function checkJWT(req, res, next) {
 
 function checkLogin(req, res, next) {
   // Status code of 401 is Unauthorized
-  if (!req.user) return res.status(401).json("Unauthorized");
+  if (!req.user) return res.status(401).json("Unauthorized - check login");
   // A okay
   next();
 }
@@ -64,6 +64,7 @@ function checkLogin(req, res, next) {
 // }
 
 function checkPermission(req, res, next) {
+
   if (!req.user) return res.status(401).json("Unauthorized");
 
   const reviewId = req.params.reviewId;

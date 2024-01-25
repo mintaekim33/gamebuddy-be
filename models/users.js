@@ -10,6 +10,7 @@ module.exports = {
   getReviews,
   // getAllReviews,
   getLoginDetails,
+  logoutUser,
 };
 
 async function createUser(body) {
@@ -75,6 +76,14 @@ async function loginUser(body) {
   return { success: true, data: token };
 }
 
+async function logoutUser(body) {
+  if (!body.hasOwnProperty("email")) {
+    return { success: false, error: "missing email" };
+  }
+  daoUsers.updateOne({ email: body.email }, { token: null, expire_at: null });
+  return { success: true, data: "logout successful" };
+}
+
 function getUser(userId) {
   return daoUsers.findOne({ _id: userId });
   // return daoUsers.findOne({ _id: userId });
@@ -95,7 +104,7 @@ function updateUser(userId, body) {
 
 function getReviews(userId) {
   // return daoReviews.find({ userId: userId }).populate("userId");
-  console.log("models layer userId: ", userId);
+  // console.log("models layer userId: ", userId);
   return daoReviews.find({ userId: userId });
 }
 
