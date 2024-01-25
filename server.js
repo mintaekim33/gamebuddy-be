@@ -4,6 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var cors = require("cors");
+const securityMiddleware = require("./middleware/security");
 
 require("dotenv").config();
 require("./client/mongo");
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(securityMiddleware.checkJWT);
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);

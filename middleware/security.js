@@ -9,8 +9,8 @@ module.exports = {
 function checkJWT(req, res, next) {
   // Check for the token being sent in a header or as a query parameter
   let token = req.get("Authorization") || req.query.token;
-  token = token.replace("Bearer ", "");
   if (token) {
+    token = token.replace("Bearer ", "");
     req.user = utilSecurity.verifyJWT(token);
   } else {
     // No token was sent
@@ -21,15 +21,19 @@ function checkJWT(req, res, next) {
 
 function checkLogin(req, res, next) {
   // Status code of 401 is Unauthorized
-  if (!req.user) return res.status(401).json("Unauthorized");
+  if (!req.user) return res.status(401).json("Unauthorized - check login");
   // A okay
   next();
 }
 
 function checkPermission(req, res, next) {
   // Status code of 401 is Unauthorized
-  if (!req.user) return res.status(401).json("Unauthorized");
+  //   console.log("req: ", req);
+  console.log("req user: ", req.user);
+  console.log("req body: ", req.body);
+  if (!req.user)
+    return res.status(401).json("Unauthorized - check user permission");
   if (req.body.email != req.user.email && req.user.is_admin == false)
-    return res.status(401).json("Unauthorized");
+    return res.status(401).json("Unauthorized - check access permission");
   next();
 }
