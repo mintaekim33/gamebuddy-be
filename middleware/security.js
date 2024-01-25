@@ -73,10 +73,12 @@ function checkPermission(req, res, next) {
       return res.status(404).json("Review not found");
     }
 
-    console.log("Review User ID:", review.userId.toString());
+    // Check if review.userId is defined before calling toString()
+    const reviewUserId = review.userId ? review.userId.toString() : null;
+    console.log("Review User ID:", reviewUserId);
     console.log("Logged-in User ID:", req.user._id);
 
-    if (review.userId.toString() !== req.user._id && !req.user.is_admin) {
+    if (reviewUserId !== req.user._id && !req.user.is_admin) {
       return res.status(403).json("Forbidden");
     }
 
