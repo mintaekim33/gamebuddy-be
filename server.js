@@ -4,15 +4,15 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var cors = require("cors");
-const securityMiddleware = require("./middleware/security");
 
 require("dotenv").config();
 require("./client/mongo");
 
+var securityMiddleware = require ('./middleware/security')
+
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var reviewsRouter = require("./routes/reviews");
-var securityMiddleware = require ('./middleware/security')
 
 var app = express();
 
