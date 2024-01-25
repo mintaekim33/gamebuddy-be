@@ -64,27 +64,14 @@ function checkLogin(req, res, next) {
 // }
 
 function checkPermission(req, res, next) {
-
+  
   if (!req.user) return res.status(401).json("Unauthorized");
 
-  const reviewId = req.params.reviewId;
+  const userIdFromRequest = req.body.userId || req.query.userId || req.params.userId;
 
-  daoReviews.findById(reviewId).then(review => {
-    if (!review) {
-      return res.status(404).json("Review not found");
-    }
+  if (userIdFromRequest !== req.user._id.toString() && !req.user.is_admin) {
+    return res.status(403).json("Forbidden");
+  }
 
-    // Check if review.userId is defined before calling toString()
-    const reviewUserId = review.userId ? review.userId.toString() : null;
-    console.log("Review User ID:", reviewUserId);
-    console.log("Logged-in User ID:", req.user._id);
-
-    if (reviewUserId !== req.user._id && !req.user.is_admin) {
-      return res.status(403).json("Forbidden");
-    }
-
-    next();
-  }).catch(err => {
-    res.status(500).json({ errorMsg: err.message });
-  });
+  next();
 }
