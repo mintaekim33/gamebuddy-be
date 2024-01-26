@@ -79,9 +79,11 @@ function checkPermission(req, res, next) {
   console.log("req user id: ", req.user._id);
   console.log("req user id to string: ", req.user._id.toString());
 
-  if (userIdFromRequest !== req.user._id.toString() && !req.user.is_admin) {
+  // User ID check for logout operation
+  if (req.path.endsWith('/logout') && userIdFromRequest !== req.user._id.toString()) {
     return res.status(403).json("Forbidden");
   }
 
+  // User has permission
   next();
 }
