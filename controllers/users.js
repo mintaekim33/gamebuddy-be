@@ -25,9 +25,9 @@ async function createUser(req, res) {
 
 async function getLoginDetails(req, res) {
   try {
-    // console.log("query: ", req.query);
+    console.log(" login details query: ", req.query);
     const loginDetails = await modelUsers.getLoginDetails(req.query);
-    // console.log("login details: ", loginDetails);
+    console.log("login details: ", loginDetails);
     if (loginDetails.success != true) {
       res.status(400).json({ errorMsg: loginDetails.error });
       return;
