@@ -1,6 +1,5 @@
 const modelReviews = require("../models/reviews");
-const modelUsers = require('../models/users'); 
-
+const modelUsers = require("../models/users");
 
 module.exports = {
   createReview,
@@ -23,7 +22,6 @@ async function createReview(req, res) {
     const review = await modelReviews.createReview(reviewData);
     res.status(201).json(review); // Return the created review
   } catch (err) {
-    console.log(err);
     res.status(500).json({ errorMsg: err.message });
   }
 }
@@ -33,7 +31,6 @@ async function getReviews(req, res) {
     const reviews = await modelReviews.getReviews();
     res.status(200).json(reviews);
   } catch (err) {
-    console.log(err);
     res.status(500).json({ errorMsg: err.message });
   }
 }
@@ -55,7 +52,7 @@ async function updateReview(req, res) {
   try {
     const reviewId = req.params.reviewId;
     const updateData = req.body;
-    const userId = req.user._id; 
+    const userId = req.user._id;
 
     const review = await modelReviews.getReview(reviewId);
     if (!review) {
@@ -63,7 +60,11 @@ async function updateReview(req, res) {
     }
 
     if (review.userId.toString() !== userId && !req.user.is_admin) {
-      return res.status(403).json({ message: "Forbidden: User not authorized to update this review" });
+      return res
+        .status(403)
+        .json({
+          message: "Forbidden: User not authorized to update this review",
+        });
     }
 
     const updatedReview = await modelReviews.updateReview(reviewId, updateData);
@@ -73,7 +74,6 @@ async function updateReview(req, res) {
     res.status(500).json({ errorMsg: err.message });
   }
 }
-
 
 async function deleteReview(req, res) {
   try {
@@ -86,7 +86,11 @@ async function deleteReview(req, res) {
     }
 
     if (review.userId.toString() !== userId && !req.user.is_admin) {
-      return res.status(403).json({ message: "Forbidden: User not authorized to delete this review" });
+      return res
+        .status(403)
+        .json({
+          message: "Forbidden: User not authorized to delete this review",
+        });
     }
 
     await modelReviews.deleteReview(reviewId);

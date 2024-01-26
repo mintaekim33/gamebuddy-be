@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 const reviewSchema = new Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Users',
-    required: true
+    ref: "Users",
+    required: true,
   },
   game: {
     type: String,
@@ -28,6 +28,5 @@ const reviewSchema = new Schema({
     required: true,
   },
 });
-
 
 module.exports = mongoose.model("Reviews", reviewSchema);
