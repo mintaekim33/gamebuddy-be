@@ -8,14 +8,12 @@ module.exports = {
   getUser,
   updateUser,
   getReviews,
-  // getAllReviews,
   getLoginDetails,
   logoutUser,
 };
 
 async function createUser(body) {
   const user = await daoUsers.findOne({ email: body.email });
-  console.log(user);
   if (user) {
     return {
       success: false,
@@ -42,7 +40,6 @@ async function getLoginDetails(queryFields) {
     { email: userEmail },
     loginFields
   );
-  console.log("LOGINFIELDRES: ", loginFieldsRes);
   return { success: true, data: loginFieldsRes };
 }
 
@@ -87,28 +84,12 @@ async function logoutUser(body) {
 
 function getUser(userId) {
   return daoUsers.findOne({ _id: userId });
-  // return daoUsers.findOne({ _id: userId });
 }
 
 function updateUser(userId, body) {
-  // const updateData = {
-  //   $set: {
-  //     // Update fields here
-  //     name: body.name,
-  //     email: body.email,
-  //   },
-  // };
-  // return daoUsers.updateOne({ name: "name" }, updateData);
-
   return daoUsers.findByIdAndUpdate(userId, body, { new: true });
 }
 
 function getReviews(userId) {
-  // return daoReviews.find({ userId: userId }).populate("userId");
-  // console.log("models layer userId: ", userId);
   return daoReviews.find({ userId: userId });
 }
-
-// function getAllReviews() {
-//   return daoReviews.find({});
-// }
