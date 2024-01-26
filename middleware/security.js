@@ -67,6 +67,11 @@ function checkPermission(req, res, next) {
   // Check if the user is authenticated
   if (!req.user) return res.status(401).json("Unauthorized");
 
+  // Bypass permission check for logout requests
+  if (req.path.endsWith('/logout')) {
+    return next();
+  }
+
   // Retrieve the user ID from the request
   const userIdFromRequest = req.body.userId || req.query.userId || req.params.userId;
 
