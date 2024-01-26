@@ -67,16 +67,22 @@ function checkPermission(req, res, next) {
   // Check if the user is authenticated
   if (!req.user) return res.status(401).json("Unauthorized");
 
-  // Retrieve the user ID from the request
-  const userIdFromRequest = req.body.userId || req.query.userId || req.params.userId;
-
-  // Determine the type of request (e.g., update, delete)
+  // Determine the type of request
   const isUpdateOrDeleteRequest = req.method === "PUT" || req.method === "DELETE";
 
-  // Check if the user is performing their own action or is an admin (for update/delete)
-  if (userIdFromRequest === req.user._id.toString() || (req.user.is_admin && isUpdateOrDeleteRequest)) {
-    next(); // User has permission
-  } else {
-    return res.status(403).json("Forbidden"); // User does not have permission
+  // Admin check for update and delete requests
+  if (isUpdateOrDeleteRequest && !req.user.is_admin) {
+    return res.status(403).json("Forbidden");
   }
+
+  // Retrieve the user ID from the request for logout
+  const userIdFromRequest = req.body.userId || req.query.userId || req.params.userId;
+
+  // User ID check for logout operation
+  if (req.path.endsWith('/logout') && userIdFromRequest !== req.user._id.toString()) {
+    return res.status(403).json("Forbidden");
+  }
+
+  // User has permission
+  next();
 }
