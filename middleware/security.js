@@ -64,14 +64,19 @@ function checkLogin(req, res, next) {
 // }
 
 function checkPermission(req, res, next) {
-  
+  // Check if the user is authenticated
   if (!req.user) return res.status(401).json("Unauthorized");
 
+  // Retrieve the user ID from the request
   const userIdFromRequest = req.body.userId || req.query.userId || req.params.userId;
 
-  if (userIdFromRequest !== req.user._id.toString() && !req.user.is_admin) {
-    return res.status(403).json("Forbidden");
-  }
+  // Determine the type of request (e.g., update, delete)
+  const isUpdateOrDeleteRequest = req.method === "PUT" || req.method === "DELETE";
 
-  next();
+  // Check if the user is performing their own action or is an admin (for update/delete)
+  if (userIdFromRequest === req.user._id.toString() || (req.user.is_admin && isUpdateOrDeleteRequest)) {
+    next(); // User has permission
+  } else {
+    return res.status(403).json("Forbidden"); // User does not have permission
+  }
 }
