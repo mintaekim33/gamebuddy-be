@@ -1,6 +1,9 @@
 # GameBuddy 
 A game reviews website where users can create, edit and delete game reviews. All users can view other users' reviews.
 
+# Deployment Link
+https://gamebuddy-fe.onrender.com/
+
 # Technologies used for Backend
 MERN Stack: MongoDB, Express.js, Node.js
 
