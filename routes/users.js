@@ -9,25 +9,18 @@ router.post("/register", userController.createUser);
 
 // GET /users/login get login details
 router.get("/login", userController.getLoginDetails);
-// POST /users/login login a user
+// POST /users/login log a user in
 router.post("/login", userController.loginUser);
 
+// POST /users/logout log a user out
 router.post(
   "/logout",
   securityMiddleware.checkPermission,
   userController.logoutUser
 );
 
-// testing
-// router.get("/reviews", userController.getAllReviews);
-
 // GET /users/reviews/:userId get reviews by a user
 router.get("/reviews/:userId", userController.getReviews);
-// router.get(
-//   "/reviews/:userId",
-//   securityMiddleware.checkPermission,
-//   userController.getReviews
-// );
 
 // GET /users/:userId get a user's profile
 router.get("/:userId", userController.getUser);

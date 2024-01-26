@@ -1,5 +1,5 @@
 const utilSecurity = require("../util/security");
-const daoReviews = require('../daos/reviews')
+const daoReviews = require("../daos/reviews");
 
 module.exports = {
   checkJWT,
@@ -27,7 +27,9 @@ function checkJWT(req, res, next) {
     try {
       const decoded = utilSecurity.verifyJWT(token);
       console.log("Decoded JWT:", decoded);
+      console.log("Req user B$ PAYLOAD:", req.user);
       req.user = decoded.payload; // Set the user information from the payload property
+      console.log("Req user AFTER PAYLOAD:", req.user);
     } catch (err) {
       console.error("JWT verification error:", err);
       req.user = null;
@@ -64,10 +66,18 @@ function checkLogin(req, res, next) {
 // }
 
 function checkPermission(req, res, next) {
-  
   if (!req.user) return res.status(401).json("Unauthorized");
 
-  const userIdFromRequest = req.body.userId || req.query.userId || req.params.userId;
+  console.log("req BODY: ", req.body);
+  console.log("req QUERY: ", req.query);
+  console.log("req PARAMS: ", req.params);
+
+  const userIdFromRequest =
+    req.body._id || req.body.userId || req.query.userId || req.params.userId;
+
+  console.log("user id from req ", userIdFromRequest);
+  console.log("req user id: ", req.user._id);
+  console.log("req user id to string: ", req.user._id.toString());
 
   if (userIdFromRequest !== req.user._id.toString() && !req.user.is_admin) {
     return res.status(403).json("Forbidden");

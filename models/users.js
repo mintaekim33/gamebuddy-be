@@ -34,7 +34,7 @@ async function getLoginDetails(queryFields) {
     iterations: 1,
   };
   if (!queryFields.hasOwnProperty("email")) {
-    return { success: false, error: "something missing email" };
+    return { success: false, error: "missing email" };
   }
   // url decode email '@' -> %40
   const userEmail = decodeURIComponent(queryFields.email);
@@ -42,6 +42,7 @@ async function getLoginDetails(queryFields) {
     { email: userEmail },
     loginFields
   );
+  console.log("LOGINFIELDRES: ", loginFieldsRes);
   return { success: true, data: loginFieldsRes };
 }
 
